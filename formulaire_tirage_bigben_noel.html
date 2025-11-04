@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🎄 Tirage au sort Noël — Bigben Connected (1 → 20 déc. 2025)</title>
+<style>
+:root{
+  --bb-red:#b8001f;
+  --bb-red-light:#e63b3b;
+  --bb-white:#ffffff;
+  --bb-gold:#d4af37;
+  --bb-text:#111;
+}
+body{
+  margin:0;
+  font-family:"Segoe UI",Roboto,Arial,sans-serif;
+  background:linear-gradient(180deg,var(--bb-red) 0%,var(--bb-white) 100%);
+  color:var(--bb-text);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:40px 10px 80px;
+  position:relative;
+}
+.card{
+  background:#fff;
+  border:3px solid var(--bb-gold);
+  border-radius:18px;
+  box-shadow:0 8px 30px rgba(0,0,0,.2);
+  max-width:720px;
+  width:100%;
+  padding:32px;
+}
+header{text-align:center;margin-bottom:10px;}
+.logo{width:180px;height:auto;margin-bottom:6px;}
+h1{font-size:1.7rem;color:var(--bb-red);margin-bottom:0;}
+.subtitle{margin-top:4px;font-weight:600;color:#444}
+.prizes{
+  background:#fff7eb;border:1px dashed var(--bb-gold);
+  border-radius:12px;padding:10px 14px;margin:16px auto;max-width:600px;text-align:left;
+}
+form{margin-top:10px;}
+.grid{display:grid;gap:14px;grid-template-columns:1fr 1fr;}
+.full{grid-column:1/-1;}
+label{display:block;font-weight:600;margin-bottom:4px;text-align:left;}
+input,select{
+  width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:15px;
+}
+input:focus,select:focus{outline:none;border-color:var(--bb-red-light);box-shadow:0 0 0 3px rgba(184,0,31,.15);}
+button{
+  margin-top:8px;padding:13px 24px;background:var(--bb-red);
+  color:#fff;font-weight:700;border:none;border-radius:10px;font-size:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.2);cursor:pointer;
+}
+button:hover{background:#8d0018;}
+.error{color:#b00020;font-size:13px;text-align:left;display:none;}
+footer{
+  position:absolute;
+  bottom:12px;
+  left:0;
+  width:100%;
+  text-align:center;
+  color:#fff;
+  font-size:13px;
+  opacity:.85;
+}
+@media(max-width:640px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+  <div class="card">
+    <header>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAhCAYAAAAGHbV6AAAABHNCSVQICAgIfAhkiAAAAQ9JREFUeJzt0rENgCAMRMEqv3z/PzluR8o9BkQl9zJ4UAsAAAAAAAAAAAAAAGBxYdxRzSm5rOJhLqq5ovC3kLlxU9lCV5VeUTlb7zMPXcBXdTB4OZ7Y8qgRWW3qpqjpi4du2V2hdjFWydxdX0skqOGrtVlsVJ0ndtLuzd2U3PncOjUZR6NGRpSqyzPhu2pfvslg7djhZtZW3b3DWuHY2LLX+gHdTd2k3O3mQls0fkhhd+7lb1HzYptbXbV9u91I0kZcD4vslXq9wQAAAAAAAAAAAAAAaJ8HLKvnz1hyO9jMAAAAAElFTkSuQmCC"
+           alt="Bigben Connected" class="logo">
+      <h1>🎄 Tirage au sort Noël — Bigben Connected</h1>
+      <p class="subtitle"><strong>Participation du 1 au 20 décembre 2025</strong></p>
+      <div class="prizes">
+        <strong>3 lots à gagner :</strong>
+        <ul style="margin:6px 0 0 18px;">
+          <li>🥇 Appareil photo Polaroid (149 €)</li>
+          <li>🥈 Enceinte Bluetooth (99 €)</li>
+          <li>🥉 Écouteurs sans fil FORCE (79 €)</li>
+        </ul>
+      </div>
+    </header>
+
+    <form id="jeuForm" novalidate>
+      <div class="grid">
+        <div>
+          <label for="nom">Nom</label>
+          <input id="nom" name="Nom" type="text" placeholder="Ex : Durand" required>
+          <div class="error" id="errNom">Veuillez renseigner votre nom.</div>
+        </div>
+
+        <div>
+          <label for="prenom">Prénom</label>
+          <input id="prenom" name="Prénom" type="text" placeholder="Ex : Marie" required>
+          <div class="error" id="errPrenom">Veuillez renseigner votre prénom.</div>
+        </div>
+
+        <div class="full">
+          <label for="email">E-mail</label>
+          <input id="email" name="Email" type="email" placeholder="Ex : marie@email.com" required>
+          <div class="error" id="errEmail">Adresse e-mail invalide.</div>
+        </div>
+
+        <div>
+          <label for="tel">Téléphone</label>
+          <input id="tel" name="Téléphone" type="tel" inputmode="numeric" placeholder="Ex : 06 12 34 56 78" required>
+          <div class="error" id="errTel">Numéro invalide.</div>
+        </div>
+
+        <div class="full">
+          <label for="magasin">Magasin</label>
+          <select id="magasin" name="Magasin" required>
+            <option value="">-- Sélectionnez votre magasin --</option>
+            <option value="Leclerc Bourgoin-Jallieu">Leclerc Bourgoin-Jallieu</option>
+          </select>
+          <div class="error" id="errMagasin">Veuillez sélectionner un magasin.</div>
+        </div>
+
+        <div>
+          <label for="montant">Montant d’achat Bigben (€)</label>
+          <input id="montant" name="Montant (€)" type="number" min="20" step="1" placeholder="Ex : 20" required>
+          <div class="error" id="errMontant">Montant minimum 20 €.</div>
+        </div>
+
+        <div>
+          <label for="date">Date d’achat</label>
+          <input id="date" name="Date d’achat" type="date" min="2025-12-01" max="2025-12-20" required>
+          <div class="error" id="errDate">Date entre le 01 et le 20/12/2025.</div>
+        </div>
+
+        <div class="full">
+          <label for="ticket">Photo du ticket (JPG/PNG/PDF)</label>
+          <input id="ticket" name="Ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
+          <div class="error" id="errTicket">Ticket requis (formats : JPG/PNG/PDF ≤ 5 Mo).</div>
+        </div>
+
+        <div class="full consent">
+          <label>
+            <input type="checkbox" id="rgpd" name="Consentement" required>
+            J’accepte le règlement du jeu et le traitement de mes données (suppression au 31/01/2026).
+          </label>
+          <div class="error" id="errRgpd">Vous devez accepter le règlement.</div>
+        </div>
+      </div>
+
+      <button type="submit">Envoyer ma participation</button>
+    </form>
+
+    <details style="margin-top:16px;">
+      <summary>📜 Règlement du jeu (résumé)</summary>
+      <p style="font-size:13px;text-align:left;line-height:1.45;margin-top:8px;">
+        <strong>Organisateur :</strong> Bigben Connected.<br>
+        <strong>Période :</strong> 1 → 20 décembre 2025.<br>
+        <strong>Condition :</strong> Achat min. 20 € d’accessoires Bigben au Leclerc Bourgoin-Jallieu + ticket de caisse obligatoire.<br>
+        <strong>Dotations :</strong> 1) Polaroid (149 €)  2) Enceinte Bluetooth (99 €)  3) Écouteurs Force (79 €).<br>
+        <strong>Tirage :</strong> 27/12/2025 – gagnants contactés par mail/téléphone.<br>
+        <strong>Données :</strong> utilisées uniquement pour ce jeu – supprimées le 31/01/2026.
+      </p>
+    </details>
+  </div>
+
+  <footer>© Bigben Connected — Tirage Noël</footer>
+
+<script>
+const byId=id=>document.getElementById(id);
+const form=byId('jeuForm');
+
+const nom=byId('nom'), prenom=byId('prenom'), email=byId('email');
+const tel=byId('tel'), montant=byId('montant'), dateA=byId('date'), ticket=byId('ticket');
+const rgpd=byId('rgpd'), mag=byId('magasin');
+
+const DEC_START=new Date('2025-12-01T00:00:00');
+const DEC_END=new Date('2025-12-20T23:59:59');
+const MAX_FILE_MB=5;
+
+// >>> Ton URL Apps Script :
+const FLOW_URL='https://script.google.com/macros/s/AKfycbzKUShxRdcZC6z4So2AmJy9W0DK4Xi3N5C7hApnWIV3-sWsIczMo4XubX2Ti9jF-7fY/exec';
+
+function validExt(n,e){return e.includes((n.split('.').pop()||'').toLowerCase());}
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onload=()=>resolve((r.result||'').toString().split(',')[1]||'');
+    r.onerror=reject;
+    r.readAsDataURL(file);
+  });
+}
+
+function valider(){
+  let ok=true;
+  if(nom.value.trim()===''){ok=false;alert('Nom manquant');}
+  if(prenom.value.trim()===''){ok=false;alert('Prénom manquant');}
+  if(email.value.trim()===''){ok=false;alert('Email manquant');}
+  if(!rgpd.checked){ok=false;alert('Veuillez accepter le règlement.');}
+  return ok;
+}
+
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  if(!valider()) return;
+
+  try{
+    const f=ticket.files[0];
+    const base64=f?await fileToBase64(f):'';
+    const payload={
+      nom:(nom.value.trim()+' '+prenom.value.trim()).trim(),
+      nom_famille:nom.value.trim(),
+      prenom:prenom.value.trim(),
+      email:email.value.trim(),
+      telephone:tel.value.trim(),
+      magasin:mag.value,
+      montant_eur:Number(montant.value||0),
+      date_achat:dateA.value,
+      consentement:rgpd.checked?'oui':'non',
+      meta:{ts_iso:new Date().toISOString(),ua:navigator.userAgent},
+      ticket:{filename:f?f.name:'',mimetype:f?f.type:'application/octet-stream',base64}
+    };
+
+    const resp=await fetch(FLOW_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'}, // évite le blocage CORS
+      body:JSON.stringify(payload)
+    });
+
+    let txt; try{txt=await resp.text();}catch{}
+    if(!resp.ok){
+      alert('Erreur serveur ('+resp.status+'): '+(txt||''));
+      return;
+    }
+
+    alert('Participation enregistrée ✅\nMerci et bonne chance !');
+    form.reset();
+
+  }catch(err){
+    console.error(err);
+    alert('Erreur d’envoi. Vérifie la connexion et réessaie.');
+  }
+});
+</script>
+</body>
+</html>
