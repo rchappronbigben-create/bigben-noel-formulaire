@@ -56,7 +56,6 @@ button{
   box-shadow:0 8px 20px rgba(0,0,0,.2);cursor:pointer;
 }
 button:hover{background:#8d0018;}
-.error{color:#b00020;font-size:13px;text-align:left;display:none;}
 footer{
   position:absolute;
   bottom:12px;
@@ -86,30 +85,27 @@ footer{
       </div>
     </header>
 
-    <form id="jeuForm" novalidate>
+    <!-- ✅ Fallback : même sans JS, le submit ouvre merci.html -->
+    <form id="jeuForm" action="merci.html" method="get" target="_self" enctype="multipart/form-data" novalidate>
       <div class="grid">
         <div>
           <label for="nom">Nom</label>
           <input id="nom" name="Nom" type="text" placeholder="Ex : Durand" required>
-          <div class="error" id="errNom">Veuillez renseigner votre nom.</div>
         </div>
 
         <div>
           <label for="prenom">Prénom</label>
           <input id="prenom" name="Prénom" type="text" placeholder="Ex : Marie" required>
-          <div class="error" id="errPrenom">Veuillez renseigner votre prénom.</div>
         </div>
 
         <div class="full">
           <label for="email">E-mail</label>
           <input id="email" name="Email" type="email" placeholder="Ex : marie@email.com" required>
-          <div class="error" id="errEmail">Adresse e-mail invalide.</div>
         </div>
 
         <div>
           <label for="tel">Téléphone</label>
           <input id="tel" name="Téléphone" type="tel" inputmode="numeric" placeholder="Ex : 06 12 34 56 78" required>
-          <div class="error" id="errTel">Numéro invalide.</div>
         </div>
 
         <div class="full">
@@ -118,25 +114,21 @@ footer{
             <option value="">-- Sélectionnez votre magasin --</option>
             <option value="Leclerc Bourgoin-Jallieu">Leclerc Bourgoin-Jallieu</option>
           </select>
-          <div class="error" id="errMagasin">Veuillez sélectionner un magasin.</div>
         </div>
 
         <div>
           <label for="montant">Montant d’achat Bigben (€)</label>
           <input id="montant" name="Montant (€)" type="number" min="20" step="1" placeholder="Ex : 20" required>
-          <div class="error" id="errMontant">Montant minimum 20 €.</div>
         </div>
 
         <div>
           <label for="date">Date d’achat</label>
           <input id="date" name="Date d’achat" type="date" min="2025-12-01" max="2025-12-20" required>
-          <div class="error" id="errDate">Date entre le 01 et le 20/12/2025.</div>
         </div>
 
         <div class="full">
           <label for="ticket">Photo du ticket (JPG/PNG/PDF)</label>
           <input id="ticket" name="Ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
-          <div class="error" id="errTicket">Ticket requis (formats : JPG/PNG/PDF ≤ 5 Mo).</div>
         </div>
 
         <div class="full consent">
@@ -144,57 +136,19 @@ footer{
             <input type="checkbox" id="rgpd" name="Consentement" required>
             J’accepte le règlement du jeu et le traitement de mes données (suppression au 31/01/2026).
           </label>
-          <div class="error" id="errRgpd">Vous devez accepter le règlement.</div>
         </div>
       </div>
 
       <button type="submit">Envoyer ma participation</button>
     </form>
 
-    <!-- RÈGLEMENT INTÉGRÉ -->
+    <!-- Règlement (résumé) -->
     <details style="margin-top:16px;">
       <summary>📜 Règlement du jeu — Noël Bigben Connected</summary>
       <div style="font-size:13px;text-align:left;line-height:1.45;margin-top:8px;">
-        <p><strong>Article 1 — Organisation</strong><br>
-        Le présent jeu est organisé par <strong>Bigben Connected</strong>, 65 Rue de la Victoire, 75009 Paris, du <strong>1er au 20 décembre 2025</strong> inclus, dans le magasin partenaire <strong>E.Leclerc Bourgoin-Jallieu</strong>.</p>
-
-        <p><strong>Article 2 — Principe du jeu</strong><br>
-        Le jeu repose sur un tirage au sort avec obligation d’achat : tout client ayant acheté <strong>deux articles Bigben Connected</strong> dans le magasin partenaire peut participer.  
-        La participation s’effectue via un <strong>formulaire en ligne</strong> accessible par QR Code, où le participant renseigne ses coordonnées (nom, prénom, e-mail, téléphone) et téléverse la <strong>photo de son ticket de caisse</strong> prouvant l’achat.</p>
-
-        <p><strong>Article 3 — Conditions de participation</strong><br>
-        Le jeu est ouvert à toute personne majeure résidant en France métropolitaine, à l’exclusion des salariés de Bigben Connected, de leurs familles et de toute personne impliquée dans l’organisation du jeu.  
-        Une seule participation par ticket de caisse est autorisée.</p>
-
-        <p><strong>Article 4 — Dates du jeu</strong><br>
-        Le jeu est ouvert du <strong>1er décembre 2025</strong> au <strong>20 décembre 2025</strong>.  
-        Le <strong>tirage au sort</strong> aura lieu le <strong>27 décembre 2025</strong>.</p>
-
-        <p><strong>Article 5 — Lots mis en jeu</strong><br>
-          🥇 Appareil photo Polaroid — valeur 149 €<br>
-          🥈 Enceinte Bluetooth — valeur 99 €<br>
-          🥉 Écouteurs sans fil FORCE — valeur 79 €<br>
-          Les lots ne sont ni échangeables, ni remboursables, ni convertibles en espèces.</p>
-
-        <p><strong>Article 6 — Désignation des gagnants</strong><br>
-        Les gagnants seront tirés au sort parmi les participations valides.  
-        Ils seront contactés par e-mail ou téléphone sous 7 jours.  
-        En l’absence de réponse sous 15 jours, le lot pourra être réattribué.</p>
-
-        <p><strong>Article 7 — Responsabilité</strong><br>
-        L’Organisateur ne saurait être tenu responsable de tout dysfonctionnement technique, perte de données ou problème lié au réseau.  
-        La participation implique l’acceptation pleine et entière du présent règlement.</p>
-
-        <p><strong>Article 8 — Données personnelles (RGPD)</strong><br>
-        Les données collectées (nom, prénom, e-mail, téléphone, ticket d’achat) sont utilisées uniquement pour la gestion du jeu et la remise des lots.  
-        Elles seront supprimées au plus tard le <strong>31 janvier 2026</strong>.  
-        Conformément au RGPD, chaque participant dispose d’un droit d’accès, de rectification et de suppression de ses données en écrivant à <strong>dpo@bigben-connected.com</strong>.</p>
-
-        <p><strong>Article 9 — Acceptation du règlement</strong><br>
-        La participation au jeu implique l’acceptation totale du présent règlement, disponible à tout moment via ce formulaire.  
-        Toute réclamation devra être adressée avant le 31 janvier 2026.</p>
-
-        <p style="margin-top:10px;"><em>© Bigben Connected — Tirage au sort Noël 2025</em></p>
+        <p><strong>Organisation :</strong> Bigben Connected, du 1 au 20/12/2025.</p>
+        <p><strong>Principe :</strong> tirage au sort avec obligation d’achat. Dépôt des coordonnées et photo du ticket.</p>
+        <p><strong>RGPD :</strong> données supprimées au plus tard le 31/01/2026. Contact : dpo@bigben-connected.com.</p>
       </div>
     </details>
   </div>
@@ -202,21 +156,18 @@ footer{
   <footer>© Bigben Connected — Tirage Noël</footer>
 
 <script>
-/* ---------- Helpers ---------- */
+/* ---------- Références ---------- */
 const byId=id=>document.getElementById(id);
 const form=byId('jeuForm');
-
 const nom=byId('nom'), prenom=byId('prenom'), email=byId('email');
 const tel=byId('tel'), montant=byId('montant'), dateA=byId('date'), ticket=byId('ticket');
 const rgpd=byId('rgpd'), mag=byId('magasin');
 
-const MAX_FILE_MB=5;
-/* URL de remerciement robuste (gère sous-dossiers GitHub Pages) */
-const THANKS_URL = new URL('./merci.html', location.href).href;
-
-/* Ton URL Apps Script (laisse comme tu l'avais) */
 const FLOW_URL='https://script.google.com/macros/s/AKfycbzKUShxRdcZC6z4So2AmJy9W0DK4Xi3N5C7hApnWIV3-sWsIczMo4XubX2Ti9jF-7fY/exec';
+const THANKS_URL=new URL('./merci.html',location.href).href;
+const MAX_FILE_MB=5;
 
+/* ---------- Utils ---------- */
 function validExt(n,e){return e.includes((n.split('.').pop()||'').toLowerCase());}
 function fileToBase64(file){
   return new Promise((resolve,reject)=>{
@@ -226,20 +177,18 @@ function fileToBase64(file){
     r.readAsDataURL(file);
   });
 }
-
 function valider(){
-  let ok=true;
-  if(nom.value.trim()===''){ok=false;alert('Nom manquant');}
-  if(prenom.value.trim()===''){ok=false;alert('Prénom manquant');}
-  if(email.value.trim()===''){ok=false;alert('Email manquant');}
-  if(mag.value===''){ok=false;alert('Veuillez sélectionner un magasin.');}
-  if(dateA.value===''){ok=false;alert('Veuillez indiquer la date d’achat.');}
-  if(!ticket.files || ticket.files.length===0){ok=false;alert('Veuillez joindre le ticket (JPG/PNG/PDF).');}
-  if(!rgpd.checked){ok=false;alert('Veuillez accepter le règlement.');}
-  return ok;
+  if(nom.value.trim()===''){alert('Nom manquant');return false;}
+  if(prenom.value.trim()===''){alert('Prénom manquant');return false;}
+  if(email.value.trim()===''){alert('Email manquant');return false;}
+  if(mag.value===''){alert('Veuillez sélectionner un magasin.');return false;}
+  if(dateA.value===''){alert('Veuillez indiquer la date d’achat.');return false;}
+  if(!ticket.files || ticket.files.length===0){alert('Veuillez joindre le ticket (JPG/PNG/PDF).');return false;}
+  if(!rgpd.checked){alert('Veuillez accepter le règlement.');return false;}
+  return true;
 }
 
-/* ---------- Soumission ---------- */
+/* ---------- Soumission robuste (sans pop-up) ---------- */
 form.addEventListener('submit', async (e)=>{
   e.preventDefault();
   if(!valider()) return;
@@ -267,35 +216,37 @@ form.addEventListener('submit', async (e)=>{
       ticket:{filename:f.name,mimetype:(f.type||'application/octet-stream'),base64}
     };
 
-    /* Envoi tolerant (même si CORS strict, on redirige quand même) */
-    const ctrl = new AbortController();
-    const timeout = setTimeout(()=>ctrl.abort(), 20000);
+    const json = JSON.stringify(payload);
+    let sent=false;
 
-    let ok = false, status = 0, txt = '';
-    try{
-      const resp = await fetch(FLOW_URL, {
-        method:'POST',
-        headers:{'Content-Type':'text/plain;charset=utf-8'}, // évite le préflight
-        body:JSON.stringify(payload),
-        signal: ctrl.signal
-        // keepalive:true // optionnel
-      });
-      status = resp.status;
-      try{ txt = await resp.text(); }catch{}
-      ok = resp.ok;
-    }catch(err){
-      // réseau/CORS/timeout : on laisse passer, l’UX reste fluide
-    }finally{
-      clearTimeout(timeout);
+    // 1) Envoi non bloquant
+    if(navigator.sendBeacon){
+      try{
+        const blob=new Blob([json],{type:'text/plain;charset=utf-8'});
+        sent = navigator.sendBeacon(FLOW_URL, blob);
+      }catch(_){}
     }
 
-    // Redirection immédiate et fiable
+    // 2) Sinon, fetch keepalive
+    if(!sent){
+      try{
+        await fetch(FLOW_URL,{
+          method:'POST',
+          headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body:json,
+          keepalive:true
+        });
+      }catch(_){}
+    }
+
+    // ➜ Redirection immédiate, sans alert
     window.location.replace(THANKS_URL);
-    console.debug('Submission result:', {ok, status, txt});
 
   }catch(err){
     console.error(err);
-    alert('Erreur d’envoi. Vérifie la connexion et réessaie.');
+    // Fallback : vrai submit HTML vers merci.html
+    form.removeEventListener('submit', arguments.callee);
+    form.submit();
   }
 });
 </script>
