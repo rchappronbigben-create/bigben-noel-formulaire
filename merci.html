@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merci & Bonne chance — Bigben Connected</title>
+<style>
+:root{
+  --bb-red:#b8001f;
+  --bb-gold:#d4af37;
+  --bb-text:#111;
+  --bb-white:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Segoe UI",Roboto,Arial,sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,var(--bb-red) 0%, var(--bb-white) 100%);
+  color:var(--bb-text);
+  padding:24px;
+}
+.card{
+  width:100%;
+  max-width:620px;
+  background:#fff;
+  border:3px solid var(--bb-gold);
+  border-radius:18px;
+  box-shadow:0 8px 30px rgba(0,0,0,.2);
+  padding:36px 28px;
+  text-align:center;
+}
+.card img.logo{width:160px;height:auto;margin-bottom:10px}
+h1{margin:6px 0 6px;font-size:1.9rem;color:var(--bb-red)}
+p{margin:8px 0 0;font-size:17px;line-height:1.5}
+.badge{
+  display:inline-block;
+  margin:14px 0 0;
+  padding:8px 14px;
+  border:2px solid var(--bb-gold);
+  border-radius:999px;
+  font-weight:700;
+}
+.btn{
+  display:inline-block;
+  margin-top:18px;
+  padding:12px 22px;
+  background:var(--bb-red);
+  color:#fff;
+  text-decoration:none;
+  border-radius:10px;
+  font-weight:700;
+  box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+.btn:hover{background:#8d0018}
+.footer{
+  margin-top:14px;
+  font-size:13px;
+  opacity:.8;
+}
+.confetti{
+  position:fixed; inset:0; pointer-events:none; overflow:hidden;
+}
+.confetti span{
+  position:absolute; top:-10px; width:8px; height:14px; border-radius:2px;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(720deg); opacity:.95}
+}
+</style>
+</head>
+<body>
+  <div class="card">
+    <img src="BIGBEN.png" alt="Bigben Connected" class="logo">
+    <h1>Merci pour votre participation 🎄</h1>
+    <p>Votre inscription au tirage au sort Noël Bigben Connected a bien été enregistrée.</p>
+    <p class="badge">Bonne chance 🍀</p>
+    <a class="btn" href="index.html">↩️ Revenir au formulaire</a>
+    <div class="footer">© Bigben Connected — Tirage Noël 2025</div>
+  </div>
+
+  <!-- Petite pluie de confettis (sans librairie) -->
+  <div class="confetti" id="confetti"></div>
+  <script>
+  (function(){
+    const c=document.getElementById('confetti');
+    const colors=['#b8001f','#d4af37','#ffffff','#111111'];
+    const n=80;
+    for(let i=0;i<n;i++){
+      const s=document.createElement('span');
+      s.style.left = Math.random()*100+'vw';
+      s.style.background = colors[Math.floor(Math.random()*colors.length)];
+      s.style.animationDuration = (6+Math.random()*5)+'s';
+      s.style.animationDelay = (Math.random()*1.5)+'s';
+      s.style.transform = 'rotate('+Math.random()*360+'deg)';
+      c.appendChild(s);
+    }
+  })();
+  </script>
+</body>
+</html>
