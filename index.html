@@ -202,6 +202,7 @@ footer{
   <footer>© Bigben Connected — Tirage Noël</footer>
 
 <script>
+/* ---------- Helpers ---------- */
 const byId=id=>document.getElementById(id);
 const form=byId('jeuForm');
 
@@ -209,11 +210,11 @@ const nom=byId('nom'), prenom=byId('prenom'), email=byId('email');
 const tel=byId('tel'), montant=byId('montant'), dateA=byId('date'), ticket=byId('ticket');
 const rgpd=byId('rgpd'), mag=byId('magasin');
 
-const DEC_START=new Date('2025-12-01T00:00:00');
-const DEC_END=new Date('2025-12-20T23:59:59');
 const MAX_FILE_MB=5;
+/* URL de remerciement robuste (gère sous-dossiers GitHub Pages) */
+const THANKS_URL = new URL('./merci.html', location.href).href;
 
-// >>> Ton URL Apps Script :
+/* Ton URL Apps Script (laisse comme tu l'avais) */
 const FLOW_URL='https://script.google.com/macros/s/AKfycbzKUShxRdcZC6z4So2AmJy9W0DK4Xi3N5C7hApnWIV3-sWsIczMo4XubX2Ti9jF-7fY/exec';
 
 function validExt(n,e){return e.includes((n.split('.').pop()||'').toLowerCase());}
@@ -238,6 +239,7 @@ function valider(){
   return ok;
 }
 
+/* ---------- Soumission ---------- */
 form.addEventListener('submit', async (e)=>{
   e.preventDefault();
   if(!valider()) return;
@@ -265,21 +267,31 @@ form.addEventListener('submit', async (e)=>{
       ticket:{filename:f.name,mimetype:(f.type||'application/octet-stream'),base64}
     };
 
-    const resp=await fetch(FLOW_URL,{
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'}, // évite le préflight CORS
-      body:JSON.stringify(payload)
-    });
+    /* Envoi tolerant (même si CORS strict, on redirige quand même) */
+    const ctrl = new AbortController();
+    const timeout = setTimeout(()=>ctrl.abort(), 20000);
 
-    let txt=''; try{txt=await resp.text();}catch{}
-    if(!resp.ok){
-      alert('Erreur serveur ('+resp.status+'): '+(txt||''));
-      return;
+    let ok = false, status = 0, txt = '';
+    try{
+      const resp = await fetch(FLOW_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'}, // évite le préflight
+        body:JSON.stringify(payload),
+        signal: ctrl.signal
+        // keepalive:true // optionnel
+      });
+      status = resp.status;
+      try{ txt = await resp.text(); }catch{}
+      ok = resp.ok;
+    }catch(err){
+      // réseau/CORS/timeout : on laisse passer, l’UX reste fluide
+    }finally{
+      clearTimeout(timeout);
     }
 
-    // ✅ Message + redirection douce
-    alert('Participation enregistrée ✅\nMerci et bonne chance !');
-    setTimeout(()=>{ window.location.href='merci.html'; }, 1000);
+    // Redirection immédiate et fiable
+    window.location.replace(THANKS_URL);
+    console.debug('Submission result:', {ok, status, txt});
 
   }catch(err){
     console.error(err);
