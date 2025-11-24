@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🎄 Tirage au sort Noël — Bigben Connected (1 → 20 déc. 2025)</title>
+<title>🎄 Tirage au sort Noël — Bigben Connected</title>
 
 <style>
 :root{
   --bb-red:#b8001f;
-  --bb-red-light:#e63b3b;
   --bb-white:#ffffff;
   --bb-gold:#d4af37;
   --bb-text:#111;
@@ -22,7 +21,6 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
   padding:40px 10px 80px;
 }
 .card{
@@ -35,8 +33,8 @@ body{
   padding:32px;
 }
 header{text-align:center;margin-bottom:10px;}
-.logo{width:180px;height:auto;margin-bottom:6px;}
-h1{font-size:1.7rem;color:var(--bb-red);margin-bottom:0;}
+.logo{width:180px;}
+h1{font-size:1.7rem;color:var(--bb-red);}
 .subtitle{margin-top:4px;font-weight:600;color:#444}
 .grid{display:grid;gap:14px;grid-template-columns:1fr 1fr;}
 .full{grid-column:1/-1;}
@@ -61,6 +59,7 @@ button:hover{background:#8d0018;}
 
 <body>
 <div class="card">
+
 <header>
   <img src="BIGBEN.png" class="logo">
   <h1>🎄 Tirage au sort Noël — Bigben Connected</h1>
@@ -118,20 +117,16 @@ button:hover{background:#8d0018;}
       <input id="ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
     </div>
 
-    <!-- 🔥 Case obligatoire conforme juridique -->
     <div class="full">
       <label>
         <input type="checkbox" id="accept_reglement" required>
-        En soumettant ce formulaire, je reconnais avoir pris connaissance et accepté les termes et conditions du 
-        <a href="reglement.html" target="_blank">règlement du jeu et du traitement des données</a>.
+        En soumettant ce formulaire, j’accepte le règlement du jeu :
+        <a href="reglement.html" target="_blank">Lire le règlement</a>.
       </label>
     </div>
 
-    <!-- Newsletter -->
     <div class="full">
-      <label><input type="checkbox" id="newsletter">
-        J’accepte de recevoir les newsletters Bigben (optionnel).
-      </label>
+      <label><input type="checkbox" id="newsletter"> Je souhaite recevoir les newsletters Bigben.</label>
     </div>
 
   </div>
@@ -139,30 +134,17 @@ button:hover{background:#8d0018;}
   <button type="submit">Envoyer ma participation</button>
 </form>
 
-<!-- 🔎 Informations résumées -->
 <div class="resume">
   <strong>INFORMATIONS RÉSUMÉES :</strong><br><br>
-
-  Jeu par tirage au sort ouvert du <strong>1er au 20 décembre 2025</strong>.<br>
-  Tirage au sort : <strong>22 décembre 2025</strong>.<br><br>
-
-  <u>Lots à gagner :</u><br>
-  🥇 Montre ICE smart TKS 2.0 (169 € TTC)<br>
-  🥈 Enceinte Bluetooth (99 € TTC)<br>
-  🥉 Écouteurs Play Touch XL (49 € TTC)<br><br>
-
-  Jeu ouvert aux personnes majeures résidant en France métropolitaine.<br>
-  1 participation par ticket de caisse.<br>
-  Participation via ce formulaire en ligne + ticket de caisse Bigben (achat de 2 articles).<br><br>
-
-Données utilisées uniquement pour la gestion du jeu.
-Conservation maximale : 36 mois, conformément à la politique de confidentialité.
-Contact RGPD : dpo@bigben-connected.com.
-
+  Jeu ouvert du <strong>1 au 20 décembre 2025</strong> — tirage le <strong>22 décembre</strong>.<br><br>
+  Lots : Montre ICE Smart (169€), Enceinte Bluetooth (99€), Écouteurs Play Touch XL (49€).
 </div>
 
 </div>
 
+<!-- ===========================
+     JAVASCRIPT FORMULAIRE
+=========================== -->
 <script>
 const FLOW_URL = "https://script.google.com/macros/s/AKfycbzd-Rp0zeH2kw51GIwnGymwZtW2Ov_1addRlKL0HcPYImJowxfCkKMnIb9swncPSFI4/exec";
 const THANKS_URL = "merci.html";
@@ -170,15 +152,18 @@ const THANKS_URL = "merci.html";
 const f = id => document.getElementById(id);
 
 function valid() {
-  if (!f("accept_reglement").checked) return alert("Vous devez accepter le règlement."), false;
+  if (!f("accept_reglement").checked) {
+    alert("Vous devez accepter le règlement.");
+    return false;
+  }
   return true;
 }
 
 async function fileToBase64(file){
   return new Promise((resolve)=>{
-    const r=new FileReader();
-    r.onload=()=>resolve(r.result.split(",")[1]);
-    r.readAsDataURL(file);
+    const reader = new FileReader();
+    reader.onload = ()=> resolve(reader.result.split(",")[1]);
+    reader.readAsDataURL(file);
   });
 }
 
@@ -186,10 +171,10 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
   e.preventDefault();
   if(!valid()) return;
 
-  const file=f("ticket").files[0];
-  const base64=await fileToBase64(file);
+  const file = f("ticket").files[0];
+  const base64 = await fileToBase64(file);
 
-  const data={
+  const data = {
     nom_famille: f("nom").value.trim(),
     prenom: f("prenom").value.trim(),
     date_naissance: f("naissance").value,
@@ -201,7 +186,7 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
     consentement_jeu:"oui",
     consentement_rgpd:"oui",
     newsletter: f("newsletter").checked ? "oui" : "non",
-    meta:{ts_iso:new Date().toISOString()},
+    meta:{ ts_iso:new Date().toISOString() },
     ticket:{
       filename:file.name,
       mimetype:file.type,
@@ -222,5 +207,3 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
 
 </body>
 </html>
-
-
