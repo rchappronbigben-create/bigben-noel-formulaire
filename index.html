@@ -164,7 +164,7 @@ async function fileToBase64(file){
     if (!file) return reject("Aucun fichier sélectionné");
     const reader = new FileReader();
     reader.onload = ()=> resolve(reader.result.split(",")[1]);
-    reader.onerror = ()=> reject("Impossible de lire le fichier.");
+    reader.onerror = (e)=> reject(e);
     reader.readAsDataURL(file);
   });
 }
@@ -207,11 +207,12 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
     }
   };
 
+  /* 🚀 ENVOI COMPATIBLE GOOGLE APPS SCRIPT */
   try {
-    await fetch(FLOW_URL,{
+    await fetch(FLOW_URL, {
       method:"POST",
-      headers:{ "Content-Type":"text/plain;charset=utf-8" },
-      body: JSON.stringify(data),
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(data)
     });
   } catch (err) {
     alert("Erreur d’envoi : " + err);
@@ -221,7 +222,3 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
   window.location.replace(THANKS_URL);
 });
 </script>
-
-</body>
-</html>
-
