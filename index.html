@@ -24,7 +24,6 @@ body{
   align-items:center;
   justify-content:flex-start;
   padding:40px 10px 80px;
-  position:relative;
 }
 .card{
   background:#fff;
@@ -77,7 +76,7 @@ button:hover{background:#8d0018;}
       </div>
     </header>
 
-    <!-- Formulaire -->
+    <!-- FORMULAIRE FINAL -->
     <form id="jeuForm" novalidate>
       <div class="grid">
 
@@ -103,7 +102,7 @@ button:hover{background:#8d0018;}
 
         <div>
           <label for="tel">Téléphone</label>
-          <input id="tel" type="tel" inputmode="numeric" required>
+          <input id="tel" type="tel" required>
         </div>
 
         <div class="full">
@@ -190,24 +189,30 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
     nom:f("nom").value.trim()+" "+f("prenom").value.trim(),
     nom_famille:f("nom").value.trim(),
     prenom:f("prenom").value.trim(),
-    naissance:f("naissance").value,
+    date_naissance:f("naissance").value,   // ✔ CORRIGÉ
+
     email:f("email").value.trim(),
     telephone:f("tel").value.trim(),
     magasin:f("magasin").value,
     montant_eur:Number(f("montant").value||0),
     date_achat:f("date").value,
+
     consentement_jeu:"oui",
     consentement_rgpd:"oui",
-    newsletter: f("newsletter").checked?"oui":"non",
+    newsletter:f("newsletter").checked ? "oui" : "non",
+
     ticket:{
       filename:file.name,
       mimetype:file.type,
       base64
     },
-    meta:{ts:new Date().toISOString(),ua:navigator.userAgent}
+
+    meta:{
+      ts_iso:new Date().toISOString(),    // ✔ CORRIGÉ
+      ua:navigator.userAgent
+    }
   };
 
-  // envoi
   navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)],{type:"text/plain"}));
 
   window.location.replace(THANKS_URL);
