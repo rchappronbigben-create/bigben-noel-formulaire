@@ -24,7 +24,6 @@ body{
   align-items:center;
   justify-content:flex-start;
   padding:40px 10px 80px;
-  position:relative;
 }
 .card{
   background:#fff;
@@ -41,12 +40,12 @@ h1{font-size:1.7rem;color:var(--bb-red);margin-bottom:0;}
 .subtitle{margin-top:4px;font-weight:600;color:#444}
 .prizes{
   background:#fff7eb;border:1px dashed var(--bb-gold);
-  border-radius:12px;padding:10px 14px;margin:16px auto;max-width:600px;text-align:left;
+  border-radius:12px;padding:10px 14px;margin:16px auto;
+  max-width:600px;text-align:left;
 }
-form{margin-top:10px;}
 .grid{display:grid;gap:14px;grid-template-columns:1fr 1fr;}
 .full{grid-column:1/-1;}
-label{display:block;font-weight:600;margin-bottom:4px;text-align:left;}
+label{display:block;font-weight:600;margin-bottom:4px;}
 input,select{
   width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:15px;
 }
@@ -61,95 +60,95 @@ button:hover{background:#8d0018;}
 </head>
 
 <body>
-  <div class="card">
-    <header>
-      <img src="BIGBEN.png" alt="Bigben Connected" class="logo">
-      <h1>🎄 Tirage au sort Noël — Bigben Connected</h1>
-      <p class="subtitle"><strong>Participation du 1 au 20 décembre 2025</strong></p>
-    </header>
+<div class="card">
+<header>
+  <img src="BIGBEN.png" class="logo">
+  <h1>🎄 Tirage au sort Noël — Bigben Connected</h1>
+  <p class="subtitle"><strong>Participation du 1 au 20 décembre 2025</strong></p>
+</header>
 
-    <!-- FORMULAIRE -->
-    <form id="jeuForm" novalidate>
-      <div class="grid">
-        <div>
-          <label for="nom">Nom</label>
-          <input id="nom" type="text" required>
-        </div>
+<form id="jeuForm" novalidate>
+  <div class="grid">
 
-        <div>
-          <label for="prenom">Prénom</label>
-          <input id="prenom" type="text" required>
-        </div>
+    <div>
+      <label for="nom">Nom</label>
+      <input id="nom" type="text" required>
+    </div>
 
-        <div>
-          <label for="naissance">Date de naissance</label>
-          <input id="naissance" type="date" required>
-        </div>
+    <div>
+      <label for="prenom">Prénom</label>
+      <input id="prenom" type="text" required>
+    </div>
 
-        <div class="full">
-          <label for="email">E-mail</label>
-          <input id="email" type="email" required>
-        </div>
+    <div>
+      <label for="naissance">Date de naissance</label>
+      <input id="naissance" type="date" required>
+    </div>
 
-        <div>
-          <label for="tel">Téléphone</label>
-          <input id="tel" type="tel" inputmode="numeric" required>
-        </div>
+    <div class="full">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" required>
+    </div>
 
-        <div class="full">
-          <label for="magasin">Magasin</label>
-          <select id="magasin" required>
-            <option value="">-- Sélectionnez votre magasin --</option>
-            <option value="Leclerc Bourgoin-Jallieu">Leclerc Bourgoin-Jallieu</option>
-          </select>
-        </div>
+    <div>
+      <label for="tel">Téléphone</label>
+      <input id="tel" type="tel" required>
+    </div>
 
-        <div>
-          <label for="montant">Montant d’achat Bigben (€)</label>
-          <input id="montant" type="number" min="20" required>
-        </div>
+    <div class="full">
+      <label for="magasin">Magasin</label>
+      <select id="magasin" required>
+        <option value="">-- Sélectionnez votre magasin --</option>
+        <option value="Leclerc Bourgoin-Jallieu">Leclerc Bourgoin-Jallieu</option>
+      </select>
+    </div>
 
-        <div>
-          <label for="date">Date d’achat</label>
-          <input id="date" type="date" min="2025-12-01" max="2025-12-20" required>
-        </div>
+    <div>
+      <label for="montant">Montant d’achat Bigben (€)</label>
+      <input id="montant" type="number" min="20" required>
+    </div>
 
-        <div class="full">
-          <label for="ticket">Photo du ticket (JPG/PNG/PDF)</label>
-          <input id="ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
-        </div>
+    <div>
+      <label for="date">Date d’achat</label>
+      <input id="date" type="date" min="2025-12-01" max="2025-12-20" required>
+    </div>
 
-        <!-- Consentements -->
-        <div class="full">
-          <label><input type="checkbox" id="conditions" required>  
-            J’accepte les conditions de participation au tirage au sort.
-          </label>
-        </div>
+    <div class="full">
+      <label for="ticket">Photo du ticket</label>
+      <input id="ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
+    </div>
 
-        <div class="full">
-          <label><input type="checkbox" id="rgpd" required>  
-            J’accepte le traitement de mes données personnelles (RGPD).
-          </label>
-        </div>
+    <div class="full">
+      <label><input type="checkbox" id="conditions" required>
+        J’accepte les conditions de participation.
+      </label>
+    </div>
 
-        <div class="full">
-          <label><input type="checkbox" id="newsletter">  
-            J’accepte de recevoir les newsletters (optionnel).
-          </label>
-        </div>
-      </div>
+    <div class="full">
+      <label><input type="checkbox" id="rgpd" required>
+        J’accepte le traitement de mes données personnelles (RGPD).
+      </label>
+    </div>
 
-      <button type="submit">Envoyer ma participation</button>
-    </form>
+    <div class="full">
+      <label><input type="checkbox" id="newsletter">
+        J’accepte de recevoir les newsletters Bigben (optionnel).
+      </label>
+    </div>
+
   </div>
 
+  <button type="submit">Envoyer ma participation</button>
+</form>
+</div>
+
 <script>
-const FLOW_URL="https://script.google.com/macros/s/AKfycbyQpWc8Q6Pks7iOxImf7jdcV-CXhbFV3ZQ-GcdQhIJKg2AOw2729PVCN-UyxYgti6s/exec";
-const THANKS_URL="merci.html";
+const FLOW_URL = "https://script.google.com/macros/s/AKfycbz2aI20jxlY7DuJruPME0H6uouGDXorZtuD9nIbcgspTdBcRWu0kKZfGgL6GBVSk3lE/exec";
+const THANKS_URL = "merci.html";
 
-const f=id=>document.getElementById(id);
+const f = id => document.getElementById(id);
 
-function valid(){
+function valid() {
   if(!f("nom").value.trim()) return alert("Nom manquant"), false;
   if(!f("prenom").value.trim()) return alert("Prénom manquant"), false;
   if(!f("naissance").value) return alert("Date de naissance manquante"), false;
@@ -157,16 +156,16 @@ function valid(){
   if(!f("magasin").value) return alert("Magasin manquant"), false;
   if(!f("date").value) return alert("Date d’achat manquante"), false;
   if(!f("ticket").files.length) return alert("Ticket manquant"), false;
-  if(!f("conditions").checked) return alert("Vous devez accepter les conditions"), false;
-  if(!f("rgpd").checked) return alert("Vous devez accepter le RGPD"), false;
+  if(!f("conditions").checked) return alert("Veuillez accepter les conditions."), false;
+  if(!f("rgpd").checked) return alert("Veuillez accepter le RGPD."), false;
   return true;
 }
 
 async function fileToBase64(file){
-  return new Promise(r=>{
-    const reader=new FileReader();
-    reader.onload=()=>r(reader.result.split(",")[1]);
-    reader.readAsDataURL(file);
+  return new Promise((resolve)=>{
+    const r=new FileReader();
+    r.onload=()=>resolve(r.result.split(",")[1]);
+    r.readAsDataURL(file);
   });
 }
 
@@ -178,29 +177,31 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
   const base64=await fileToBase64(file);
 
   const data={
-    nom_famille:f("nom").value.trim(),
-    prenom:f("prenom").value.trim(),
-    date_naissance:f("naissance").value,
-    email:f("email").value.trim(),
-    telephone:f("tel").value.trim(),
-    magasin:f("magasin").value,
-    montant_eur:Number(f("montant").value),
-    date_achat:f("date").value,
+    nom: f("nom").value.trim()+" "+f("prenom").value.trim(),
+    nom_famille: f("nom").value.trim(),
+    prenom: f("prenom").value.trim(),
+    date_naissance: f("naissance").value,
+    email: f("email").value.trim(),
+    telephone: f("tel").value.trim(),
+    magasin: f("magasin").value,
+    montant_eur: Number(f("montant").value),
+    date_achat: f("date").value,
     consentement_jeu:"oui",
     consentement_rgpd:"oui",
-    newsletter:f("newsletter").checked?"oui":"non",
+    newsletter: f("newsletter").checked ? "oui" : "non",
+    meta:{ts_iso:new Date().toISOString()},
     ticket:{
       filename:file.name,
       mimetype:file.type,
       base64
-    },
-    meta:{ts_iso:new Date().toISOString()}
+    }
   };
 
-  navigator.sendBeacon(FLOW_URL,new Blob([JSON.stringify(data)],{type:"text/plain"}));
+  navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)],{type:"text/plain"}));
+
   window.location.replace(THANKS_URL);
 });
 </script>
+
 </body>
 </html>
-
