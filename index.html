@@ -38,11 +38,6 @@ header{text-align:center;margin-bottom:10px;}
 .logo{width:180px;height:auto;margin-bottom:6px;}
 h1{font-size:1.7rem;color:var(--bb-red);margin-bottom:0;}
 .subtitle{margin-top:4px;font-weight:600;color:#444}
-.prizes{
-  background:#fff7eb;border:1px dashed var(--bb-gold);
-  border-radius:12px;padding:10px 14px;margin:16px auto;
-  max-width:600px;text-align:left;
-}
 .grid{display:grid;gap:14px;grid-template-columns:1fr 1fr;}
 .full{grid-column:1/-1;}
 label{display:block;font-weight:600;margin-bottom:4px;}
@@ -142,6 +137,8 @@ button:hover{background:#8d0018;}
 </form>
 </div>
 
+<!-- ★★★ SCRIPT FINAL FONCTIONNEL ★★★ -->
+
 <script>
 const FLOW_URL = "https://script.google.com/macros/s/AKfycbz2aI20jxlY7DuJruPME0H6uouGDXorZtuD9nIbcgspTdBcRWu0kKZfGgL6GBVSk3lE/exec";
 const THANKS_URL = "merci.html";
@@ -197,7 +194,17 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
     }
   };
 
-  navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)],{type:"text/plain"}));
+  /* 🚀 ENVOI COMPATIBLE GOOGLE APPS SCRIPT */
+  try {
+    await fetch(FLOW_URL, {
+      method:"POST",
+      headers:{ "Content-Type":"text/plain;charset=utf-8" },
+      body: JSON.stringify(data),
+      keepalive:true
+    });
+  } catch(err){
+    console.error("Erreur d’envoi :", err);
+  }
 
   window.location.replace(THANKS_URL);
 });
