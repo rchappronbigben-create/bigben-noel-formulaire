@@ -142,15 +142,14 @@ button:hover{background:#8d0018;}
 
 </div>
 
-<!-- ===========================
-     JAVASCRIPT FORMULAIRE
-=========================== -->
 <script>
+/* 🚀 URL APPS SCRIPT */
 const FLOW_URL = "https://script.google.com/macros/s/AKfycbwF2P5gYesdlkiC_d6VMadKliDJN3XubA5qRn1khcuQvVK7kr1t4KVRd7WvK4Og7Nlu/exec";
 const THANKS_URL = "merci.html";
 
 const f = id => document.getElementById(id);
 
+/* Vérification règlement */
 function valid() {
   if (!f("accept_reglement").checked) {
     alert("Vous devez accepter le règlement.");
@@ -159,33 +158,28 @@ function valid() {
   return true;
 }
 
+/* Conversion fichier → Base64 */
 async function fileToBase64(file){
   return new Promise((resolve, reject)=>{
-    if (!file) return reject("Aucun fichier sélectionné");
     const reader = new FileReader();
     reader.onload = ()=> resolve(reader.result.split(",")[1]);
-    reader.onerror = (e)=> reject(e);
+    reader.onerror = ()=> reject("Erreur lecture fichier");
     reader.readAsDataURL(file);
   });
 }
 
+/* Envoi formulaire */
 document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
   e.preventDefault();
   if(!valid()) return;
 
   const file = f("ticket").files[0];
-  if (!file) {
-    alert("Merci d’ajouter votre ticket de caisse.");
+  if (!file){
+    alert("Merci d’ajouter votre ticket.");
     return;
   }
 
-  let base64 = "";
-  try {
-    base64 = await fileToBase64(file);
-  } catch (err) {
-    alert("Erreur lecture fichier : " + err);
-    return;
-  }
+  let base64 = await fileToBase64(file);
 
   const data = {
     nom_famille: f("nom").value.trim(),
@@ -196,10 +190,10 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
     magasin: f("magasin").value,
     montant_eur: Number(f("montant").value),
     date_achat: f("date").value,
-    consentement_jeu: "oui",
-    consentement_rgpd: "oui",
+    consentement_jeu:"oui",
+    consentement_rgpd:"oui",
     newsletter: f("newsletter").checked ? "oui" : "non",
-    meta:{ ts_iso:new Date().toISOString() },
+    meta: { ts_iso: new Date().toISOString() },
     ticket:{
       filename:file.name,
       mimetype:file.type,
@@ -207,18 +201,20 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
     }
   };
 
-  /* 🚀 ENVOI COMPATIBLE GOOGLE APPS SCRIPT */
-  try {
-    await fetch(FLOW_URL, {
+  try{
+    await fetch(FLOW_URL,{
       method:"POST",
-      headers:{ "Content-Type":"application/json" },
+      headers:{ "Content-Type":"text/plain;charset=utf-8" },
       body: JSON.stringify(data)
     });
-  } catch (err) {
-    alert("Erreur d’envoi : " + err);
+  }catch(err){
+    alert("Erreur d'envoi : "+err);
     return;
   }
 
-  window.location.replace(THANKS_URL);
+  window.location.href = THANKS_URL;
 });
 </script>
+
+</body>
+</html>
