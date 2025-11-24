@@ -196,7 +196,7 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
 
   await fetch(FLOW_URL,{
     method:"POST",
-    headers:{ "Content-Type":"text/plain;charset=utf-8" },
+    headers:{ "Content-Type":"application/json" },
     body: JSON.stringify(data),
     keepalive:true
   });
@@ -207,6 +207,7 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
 
 </body>
 </html>
+
 
 
 
