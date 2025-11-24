@@ -24,6 +24,7 @@ body{
   align-items:center;
   justify-content:flex-start;
   padding:40px 10px 80px;
+  position:relative;
 }
 .card{
   background:#fff;
@@ -65,21 +66,11 @@ button:hover{background:#8d0018;}
       <img src="BIGBEN.png" alt="Bigben Connected" class="logo">
       <h1>🎄 Tirage au sort Noël — Bigben Connected</h1>
       <p class="subtitle"><strong>Participation du 1 au 20 décembre 2025</strong></p>
-
-      <div class="prizes">
-        <strong>3 lots à gagner :</strong>
-        <ul style="margin:6px 0 0 18px;">
-          <li>🥇 Montre ICE smart TKS 2.0 (169 €)</li>
-          <li>🥈 Enceinte Bluetooth (99 €)</li>
-          <li>🥉 Écouteurs Play Touch XL (49 €)</li>
-        </ul>
-      </div>
     </header>
 
-    <!-- FORMULAIRE FINAL -->
+    <!-- FORMULAIRE -->
     <form id="jeuForm" novalidate>
       <div class="grid">
-
         <div>
           <label for="nom">Nom</label>
           <input id="nom" type="text" required>
@@ -102,7 +93,7 @@ button:hover{background:#8d0018;}
 
         <div>
           <label for="tel">Téléphone</label>
-          <input id="tel" type="tel" required>
+          <input id="tel" type="tel" inputmode="numeric" required>
         </div>
 
         <div class="full">
@@ -128,6 +119,7 @@ button:hover{background:#8d0018;}
           <input id="ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
         </div>
 
+        <!-- Consentements -->
         <div class="full">
           <label><input type="checkbox" id="conditions" required>  
             J’accepte les conditions de participation au tirage au sort.
@@ -142,7 +134,7 @@ button:hover{background:#8d0018;}
 
         <div class="full">
           <label><input type="checkbox" id="newsletter">  
-            J’accepte de recevoir les newsletters Bigben Connected (optionnel).
+            J’accepte de recevoir les newsletters (optionnel).
           </label>
         </div>
       </div>
@@ -155,9 +147,9 @@ button:hover{background:#8d0018;}
 const FLOW_URL="https://script.google.com/macros/s/AKfycbzKUShxRdcZC6z4So2AmJy9W0DK4Xi3N5C7hApnWIV3-sWsIczMo4XubX2Ti9jF-7fY/exec";
 const THANKS_URL="merci.html";
 
-const f = id => document.getElementById(id);
+const f=id=>document.getElementById(id);
 
-function valid() {
+function valid(){
   if(!f("nom").value.trim()) return alert("Nom manquant"), false;
   if(!f("prenom").value.trim()) return alert("Prénom manquant"), false;
   if(!f("naissance").value) return alert("Date de naissance manquante"), false;
@@ -171,10 +163,10 @@ function valid() {
 }
 
 async function fileToBase64(file){
-  return new Promise((resolve)=>{
-    const r=new FileReader();
-    r.onload=()=>resolve(r.result.split(",")[1]);
-    r.readAsDataURL(file);
+  return new Promise(r=>{
+    const reader=new FileReader();
+    reader.onload=()=>r(reader.result.split(",")[1]);
+    reader.readAsDataURL(file);
   });
 }
 
@@ -186,35 +178,26 @@ document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
   const base64=await fileToBase64(file);
 
   const data={
-    nom:f("nom").value.trim()+" "+f("prenom").value.trim(),
     nom_famille:f("nom").value.trim(),
     prenom:f("prenom").value.trim(),
-    date_naissance:f("naissance").value,   // ✔ CORRIGÉ
-
+    date_naissance:f("naissance").value,
     email:f("email").value.trim(),
     telephone:f("tel").value.trim(),
     magasin:f("magasin").value,
-    montant_eur:Number(f("montant").value||0),
+    montant_eur:Number(f("montant").value),
     date_achat:f("date").value,
-
     consentement_jeu:"oui",
     consentement_rgpd:"oui",
-    newsletter:f("newsletter").checked ? "oui" : "non",
-
+    newsletter:f("newsletter").checked?"oui":"non",
     ticket:{
       filename:file.name,
       mimetype:file.type,
       base64
     },
-
-    meta:{
-      ts_iso:new Date().toISOString(),    // ✔ CORRIGÉ
-      ua:navigator.userAgent
-    }
+    meta:{ts_iso:new Date().toISOString()}
   };
 
-  navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)],{type:"text/plain"}));
-
+  navigator.sendBeacon(FLOW_URL,new Blob([JSON.stringify(data)],{type:"text/plain"}));
   window.location.replace(THANKS_URL);
 });
 </script>
