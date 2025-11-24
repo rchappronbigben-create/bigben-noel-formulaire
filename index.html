@@ -143,7 +143,7 @@ button:hover{background:#8d0018;}
 </div>
 
 <!-- ===========================
-     JAVASCRIPT
+     JAVASCRIPT FORMULAIRE
 =========================== -->
 <script>
 const FLOW_URL = "https://script.google.com/macros/s/AKfycbxZ8XnmCLCoe3Ggmy47tc1Gdo6x8hcW7C7gmxOiMDeBt2HVRsnW7b92qIzcfDf6dT26/exec";
@@ -151,25 +151,6 @@ const THANKS_URL = "merci.html";
 
 const f = id => document.getElementById(id);
 
-/* --- Sécurise totalement le traitement du fichier --- */
-async function fileToBase64(file){
-  return new Promise((resolve, reject)=>{
-    if(!file){
-      reject("Aucun fichier fourni");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onerror = () => reject("Erreur lecture fichier");
-    reader.onload = () => {
-      const base64 = reader.result.split(",")[1];
-      resolve(base64);
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-/* --- Validation simple --- */
 function valid() {
   if (!f("accept_reglement").checked) {
     alert("Vous devez accepter le règlement.");
@@ -178,18 +159,31 @@ function valid() {
   return true;
 }
 
-/* --- Envoi formulaire --- */
-document.getElementById("jeuForm").addEventListener("submit", async (e)=>{
+async function fileToBase64(file){
+  return new Promise((resolve, reject)=>{
+    if (!file) return reject("Aucun fichier sélectionné");
+    const reader = new FileReader();
+    reader.onload = ()=> resolve(reader.result.split(",")[1]);
+    reader.onerror = (e)=> reject(e);
+    reader.readAsDataURL(file);
+  });
+}
+
+document.getElementById("jeuForm").addEventListener("submit", async(e)=>{
   e.preventDefault();
   if(!valid()) return;
 
   const file = f("ticket").files[0];
+  if (!file) {
+    alert("Merci d’ajouter votre ticket de caisse.");
+    return;
+  }
 
   let base64 = "";
-  try{
+  try {
     base64 = await fileToBase64(file);
-  } catch(err){
-    alert("Erreur fichier : " + err);
+  } catch (err) {
+    alert("Erreur lecture fichier : " + err);
     return;
   }
 
@@ -202,9 +196,9 @@ document.getElementById("jeuForm").addEventListener("submit", async (e)=>{
     magasin: f("magasin").value,
     montant_eur: Number(f("montant").value),
     date_achat: f("date").value,
+    consentement_jeu: "oui",
+    consentement_rgpd: "oui",
     newsletter: f("newsletter").checked ? "oui" : "non",
-    consentement_jeu:"oui",
-    consentement_rgpd:"oui",
     meta:{ ts_iso:new Date().toISOString() },
     ticket:{
       filename:file.name,
@@ -213,18 +207,18 @@ document.getElementById("jeuForm").addEventListener("submit", async (e)=>{
     }
   };
 
-  try{
-    await fetch(FLOW_URL, {
+  try {
+    await fetch(FLOW_URL,{
       method:"POST",
       headers:{ "Content-Type":"application/json" },
       body: JSON.stringify(data)
     });
-
-    window.location.replace(THANKS_URL);
-
-  } catch(err){
+  } catch (err) {
     alert("Erreur d’envoi : " + err);
+    return;
   }
+
+  window.location.replace(THANKS_URL);
 });
 </script>
 
