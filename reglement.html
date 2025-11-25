@@ -6,57 +6,73 @@
 <title>Règlement du Jeu — Bigben Connected</title>
 
 <style>
+/* Police propre et lisible */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root{
   --bb-red:#b8001f;
   --bb-white:#fff;
   --bb-gold:#d4af37;
   --bb-text:#111;
 }
+
 body{
   margin:0;
-  font-family:'Segoe UI',Arial,sans-serif;
+  font-family:'Inter', Arial, sans-serif;
   background:linear-gradient(180deg,var(--bb-red),var(--bb-white));
   padding:40px 12px 80px;
   display:flex;
   justify-content:center;
 }
+
 .card{
   background:#fff;
   border:3px solid var(--bb-gold);
   border-radius:18px;
-  box-shadow:0 8px 30px rgba(0,0,0,.24);
-  padding:32px;
+  box-shadow:0 8px 30px rgba(0,0,0,.18);
+  padding:40px;
   max-width:950px;
   width:100%;
+  font-size:17px;
+  line-height:1.65;
+  color:#222;
 }
+
 h1{
   text-align:center;
   color:var(--bb-red);
-  font-size:2rem;
-  margin-bottom:25px;
+  font-size:2.3rem;
+  margin-bottom:30px;
+  font-weight:700;
 }
+
 h2{
   color:#000;
-  font-size:22px;
-  font-weight:800;
+  font-size:21px;
+  font-weight:700;
   margin-top:30px;
-  margin-bottom:10px;
+  margin-bottom:12px;
 }
+
 p, pre{
   white-space:pre-wrap;
-  line-height:1.55;
-  font-size:16px;
+  line-height:1.7;
+  font-size:17px;
   color:#222;
+  font-weight:400;
 }
+
 a{
-  color:#b8001f;
+  color:var(--bb-red);
   font-weight:600;
   text-decoration:none;
 }
+
 a:hover{
   text-decoration:underline;
 }
 </style>
+
 </head>
 
 <body>
