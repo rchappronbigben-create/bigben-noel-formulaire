@@ -71,32 +71,32 @@ button:hover{background:#8d0018;}
 
     <div>
       <label for="nom">Nom</label>
-      <input id="nom" type="text" required>
+      <input id="nom" name="nom" type="text" required>
     </div>
 
     <div>
       <label for="prenom">Prénom</label>
-      <input id="prenom" type="text" required>
+      <input id="prenom" name="prenom" type="text" required>
     </div>
 
     <div>
       <label for="naissance">Date de naissance</label>
-      <input id="naissance" type="date" required>
+      <input id="naissance" name="naissance" type="date" required>
     </div>
 
     <div class="full">
       <label for="email">E-mail</label>
-      <input id="email" type="email" required>
+      <input id="email" name="email" type="email" required>
     </div>
 
     <div>
       <label for="tel">Téléphone</label>
-      <input id="tel" type="tel" required>
+      <input id="tel" name="tel" type="tel" required>
     </div>
 
     <div class="full">
       <label for="magasin">Magasin</label>
-      <select id="magasin" required>
+      <select id="magasin" name="magasin" required>
         <option value="">-- Sélectionnez votre magasin --</option>
         <option value="Leclerc Bourgoin-Jallieu">Leclerc Bourgoin-Jallieu</option>
       </select>
@@ -104,29 +104,29 @@ button:hover{background:#8d0018;}
 
     <div>
       <label for="montant">Montant d’achat Bigben (€)</label>
-      <input id="montant" type="number" min="20" required>
+      <input id="montant" name="montant" type="number" min="20" required>
     </div>
 
     <div>
       <label for="date">Date d’achat</label>
-      <input id="date" type="date" min="2025-12-01" max="2025-12-20" required>
+      <input id="date" name="date" type="date" min="2025-12-01" max="2025-12-20" required>
     </div>
 
     <div class="full">
       <label for="ticket">Photo du ticket</label>
-      <input id="ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
+      <input id="ticket" name="ticket" type="file" accept=".jpg,.jpeg,.png,.pdf" required>
     </div>
 
     <div class="full">
       <label>
-        <input type="checkbox" id="accept_reglement" required>
+        <input type="checkbox" id="accept_reglement" name="accept_reglement" required>
         En soumettant ce formulaire, j’accepte le règlement du jeu :
         <a href="reglement.html" target="_blank">Lire le règlement</a>.
       </label>
     </div>
 
     <div class="full">
-      <label><input type="checkbox" id="newsletter"> Je souhaite recevoir les newsletters Bigben.</label>
+      <label><input type="checkbox" id="newsletter" name="newsletter"> Je souhaite recevoir les newsletters Bigben.</label>
     </div>
 
   </div>
